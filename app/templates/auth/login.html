@@ -31,27 +31,14 @@
     <div class="row container center-block">
         <div class="col-md-6">
             <h1 class="page-header ">登陆</h1>
-            <form>
-                <div class="form-group">
-                    <label for="get_user_name">用户名</label>
-                    <input type="text" class="form-control" id="get_user_name" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="get_password">密码</label>
-                    <input type="password" class="form-control" id="get_password" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label for="check_code">验证码</label><br>
-                    <div class="row">
-                        <div class="col-md-8"><input class="form-control" type="text" id="check_code" placeholder="Checkcode"></div>
-                        <div class="col-md-4"><img src="/static/img/test.jpg" alt="check-code"></div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-default">登陆</button>
+            <form method="POST" action="/">
+                {{ form.hidden_tag() }}
+                {{ form.username.label }} {{ form.username(size=20) }}
+                <input type="submit" value="Go">
             </form>
         </div>
         <div class="col-md-6">
-            <img src="/static/img/seek.jpg" alt="seek">
+            <img src="../../static/img/seek.jpg" alt="seek" style="width: 100%; height: 100%;">
         </div>
     </div>
 {% endblock %}

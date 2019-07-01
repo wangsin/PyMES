@@ -2,56 +2,20 @@
 
 {% block title %} PyMES {% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle"
-                data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle Navigate</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-            </button>
-            <a href="" class="navbar-brand" href="/">PyMES</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/">模拟</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a href="/">监控</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a href="/">物料</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a href="/">订单</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a href="/">库存</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a href="/">用户</a></li>
-            </ul>
+{% include 'navbar.html' %}
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">退出</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">{{ name }}</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-{% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="page-header">
-            <h1>今天是{{ name }}</h1>
+            <h1>欢迎使用PyMES</h1>
+            {% if user == 'not_login' %}
+                <p>请登录</p>
+            {% elif user == 'admin' %}
+                <p>以管理员身份进入</p>
+            {% elif user == 'watcher' %}
+                <p>以观察者身份进入</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

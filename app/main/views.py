@@ -1,17 +1,19 @@
-from flask import render_template
-
-from forms import LoginForm
+from flask import render_template, sessions, redirect, url_for
 from . import main
+from .. import db
 
 
-@main.route('/', method=("GET", "POST"))
+@main.route('/', methods=['GET', 'POST'])
 def index():
-    form = LoginForm()
-    if form.validate_on_submit():
-        pass
-    return render_template('auth/login.html', form=form)
+    return render_template('index.html', user='not_login')
 
 
-@main.route('/user-test/<name>')
-def show_name(name):
-    return render_template('index.html', name=name)
+@main.route('/index', methods=['GET', 'POST'])
+def index_two():
+    return render_template('index.html', user='admin')
+
+
+@main.route('/right', methods=['GET', 'POST'])
+def right():
+    return render_template('index.html', user='watcher')
+

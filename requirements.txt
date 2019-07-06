@@ -1,4 +1,5 @@
-pymysql
+matplotlib
+numpy
 blinker==1.4
 Click==7.0
 dominate==2.3.5
@@ -12,7 +13,10 @@ Flask-WTF==0.14.2
 itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
+PyMySQL==0.9.3
 SQLAlchemy==1.3.5
 visitor==0.1.3
 Werkzeug==0.15.4
 WTForms==2.2.1
+xlrd==1.2.0
+xlwt==1.3.0

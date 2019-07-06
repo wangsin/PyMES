@@ -1,0 +1,25 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 订单管理 -- PyMES {% endblock %}
+
+{% include 'navbar.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-6">
+            <h1 class="page-header">添加订单</h1>
+            <div>{{ wtf.quick_form(form, method="POST", enctype="multipart/form-data" ) }}</div>
+        </div>
+        <div class="col-md-6">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">{{ message }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            {% endfor %}
+            <h1 class="page-header">管理订单</h1>
+            <!-- 管理订单的表格 -->
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "bootstrap/base.html" %}
+{% import 'macros.html' as macros %}
+
+{% block title %}
+    用户管理 -- PyMES
+{% endblock %}
+{% include 'navbar.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-header">用户管理</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>邮箱</th>
+                    <th>用户角色</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    {{ macros.render_user(user) }}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

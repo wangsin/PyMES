@@ -25,7 +25,7 @@ def login():
             login_user(user, form.remember_me.data)
             next = request.args.get('next')
             if next is None or not next.startwith('/'):
-                next = url_for('main.index')
+                next = url_for('main.index_render')
             flash("登陆成功")
         else:
             flash("账号或密码错误")
@@ -37,7 +37,7 @@ def login():
 def logout():
     logout_user()
     flash("你已经成功登出")
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.index_render'))
 
 
 @auth.route('/register', methods=['GET', 'POST'])

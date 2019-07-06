@@ -7,15 +7,20 @@
 
 {% block content %}
     <div class="container">
-        <div class="page-header">
-            <h1>欢迎使用PyMES</h1>
-            {% if user == 'not_login' %}
-                <p>请登录</p>
-            {% elif user == 'admin' %}
-                <p>以管理员身份进入</p>
-            {% elif user == 'watcher' %}
-                <p>以观察者身份进入</p>
+        <div class="col-md-9">
+            <h1>你好{{ current_user.name }}，欢迎使用PyMES</h1>
+            {% if current_user.is_anonymous %}
+            <p>您还没有登陆，点击下方按钮进行登陆或者注册</p>
+            <a href="{{ url_for("auth.login") }}"><button type="button" class="btn btn-lg btn-primary">登陆</button></a>
+            <a href="{{ url_for("auth.register") }}"><button type="button" class="btn btn-lg btn-primary">注册</button></a>
+            {% else %}
+                {% if not current_user.is_administrator %}
+                    <p>当前账户角色为观察者，请通过上方导航栏进入指定功能。</p>
+                {% else %}
+                    <p>当前账户角色为管理员，请通过上方导航栏进入指定功能。</p>
+                {% endif %}
             {% endif %}
+
         </div>
     </div>
 {% endblock %}

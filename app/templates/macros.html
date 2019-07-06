@@ -1,0 +1,12 @@
+{% macro render_user(user) %}
+<tr>
+    <th>{{ user.id }}</th>
+    <th>{{ user.name }}</th>
+    <th>{{ user.email }}</th>
+    {% if user.is_administrator %}
+        <th>管理员</th>
+    {% else %}
+        <th>观察者</th>
+    {% endif %}
+</tr>
+{% endmacro %}

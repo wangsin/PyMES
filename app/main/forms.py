@@ -31,11 +31,11 @@ class AddCustomer(FlaskForm):
 class AddOrderForm(FlaskForm):
     customer_tel = StringField('已经注册的顾客电话', validators=[DataRequired(), Length(1, 64)])
     start_date = DateField('起始日期', validators=[DataRequired()])
-    is_urgent = BooleanField('是否紧急', validators=[DataRequired()])
+    is_urgent = BooleanField('是否紧急')
     need_material_id = IntegerField('所需材料ID', validators=[DataRequired()])
     need_material = IntegerField('所需材料数', validators=[DataRequired()])
     need_stock = IntegerField('所需库存', validators=[DataRequired()])
-    submit = SubmitField('确认注册顾客信息')
+    submit = SubmitField('确认添加订单')
 
 
 class AddJob(FlaskForm):

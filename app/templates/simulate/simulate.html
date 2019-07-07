@@ -7,6 +7,9 @@
 
 {% block content %}
     <div class="container">
+        {% if not result == None %}
+            <img src="{{ result.result_img_path }}" alt="排程甘特图" style="width: 100%; margin: 0 auto;">
+        {% endif %}
         <div class="col-md-3">
             <h1 class="page-header">任务模拟</h1>
             <div>{{ wtf.quick_form(form, method="POST", enctype="multipart/form-data" ) }}</div>
@@ -16,12 +19,11 @@
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 </div>
             {% endfor %}
+            <img src="../../static/img/guide.jpg" alt="图例" style="width: 60%;">
         </div>
         <div class="col-md-9">
             {% if not result == None %}
             <h1 class="page-header">订单 {{ result.order_id }} 模拟结果 开发任务编号:{{ result.id }}</h1>
-
-            <img src="{{ result.result_img_path }}" alt="排程甘特图" style="width: 100%;">
 
             <table class="table table-striped">
                 <tr>

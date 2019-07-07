@@ -29,7 +29,8 @@ def user_manager():
     if not current_user.is_administrator:
         return render_template('error/401.html')
 
-    return render_template('user/users.html', users=db.session.query(User.id, User.name, User.email, User.is_administrator))
+    return render_template('user/users.html',
+                           users=db.session.query(User.id, User.name, User.email, User.is_administrator))
 
 
 @main.route('/material', methods=['GET', 'POST'])
@@ -46,7 +47,8 @@ def manage_material():
         db.session.add(material)
         db.session.commit()
         flash('物料添加成功')
-    return render_template('material/material.html', form=form, materials=db.session.query(Material.id, Material.name, Material.rest))
+    return render_template('material/material.html', form=form,
+                           materials=db.session.query(Material.id, Material.name, Material.rest))
 
 
 @main.route('/order', methods=['GET', 'POST'])
@@ -57,22 +59,28 @@ def manage_order():
 
     form = AddOrderForm()
     if form.validate_on_submit():
-        order = Order(order_id=int(t) + random.randint(0, 10),
-                      start_date=form.start_date.data,
-                      custom_id=Customer.query.filter_by(tel=form.customer_tel.data).first_or_404().id,
-                      is_available=True,
-                      is_finished=False,
-                      is_urgent=form.is_urgent.data,
-                      need_material=form.need_material.data,
-                      need_material_id=Material.query.filter_by(id=form.need_material_id.data).first_or_404().id,
-                      need_stock=form.need_stock.data)
-        db.session.add(order)
-        db.session.commit()
-        flash('订单添加成功')
+        if Customer.query.filter_by(tel=form.customer_tel.data).first() is not None and Material.query.filter_by(
+                id=form.need_material_id.data).first() is not None:
+            order = Order(order_id=int(t) + random.randint(0, 10),
+                          start_date=form.start_date.data,
+                          custom_id=Customer.query.filter_by(tel=form.customer_tel.data).first().id,
+                          is_available=True,
+                          is_finished=False,
+                          is_urgent=form.is_urgent.data,
+                          need_material=form.need_material.data,
+                          need_material_id=Material.query.filter_by(id=form.need_material_id.data).first().id,
+                          need_stock=form.need_stock.data)
+            db.session.add(order)
+            db.session.commit()
+            flash('订单添加成功')
     return render_template('order/order.html', form=form, orders=db.session.query(Order.order_id, Order.start_date
                                                                                   , Order.end_date, Order.custom_id
-                                                                                  , Order.is_available, Order.is_finished,
-                                                                                  Order.is_urgent, Order.need_material_id, Order.need_material, Order.need_stock))
+                                                                                  , Order.is_available,
+                                                                                  Order.is_finished,
+                                                                                  Order.is_urgent,
+                                                                                  Order.need_material_id,
+                                                                                  Order.need_material,
+                                                                                  Order.need_stock))
 
 
 @main.route('/customer', methods=['GET', 'POST'])
@@ -92,7 +100,8 @@ def manage_customer():
         db.session.commit()
         flash('订单注册成功')
 
-    return render_template('customer.html', form=form, customers=db.session.query(Customer.id, Customer.name, Customer.tel, Customer.company))
+    return render_template('customer.html', form=form,
+                           customers=db.session.query(Customer.id, Customer.name, Customer.tel, Customer.company))
 
 
 @main.route('/stock', methods=['GET', 'POST'])
@@ -125,7 +134,8 @@ def watch_job():
         watch_arr.append(datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M'))
         watch_arr.append(datetime.datetime.strftime(datetime.datetime.now() +
                                                     datetime.timedelta(minutes=watch_arr[0]), '%Y-%m-%d %H:%M'))
-        watch_arr.append(Order.query.filter_by(order_id=Job.query.filter_by(id=job_id).first().order_id).first().need_stock)
+        watch_arr.append(
+            Order.query.filter_by(order_id=Job.query.filter_by(id=job_id).first().order_id).first().need_stock)
 
     return render_template('watcher/watcher.html'
                            , form=form, id=job_id, arr=watch_arr)
@@ -159,4 +169,3 @@ def simulate_job():
 def query_job():
     return render_template('watcher/query_job.html', jobs=db.session.query(Job.id, Job.order_id
                                                                            , Job.best_time, Job.best_aps))
-

@@ -188,6 +188,7 @@ def make_gunter_matrix(solutions, contexts):
 
 def draw_gunter_graph(g_matrix, t_matrix):
     plt.figure('figure2', figsize=(12, 4), dpi=250)
+    names = []
     for t in t_matrix:
         for_gunter_start.append(t[3] - t[4])
     for g in g_matrix:
@@ -205,10 +206,13 @@ def draw_gunter_graph(g_matrix, t_matrix):
             for_gunter_color.append("gray")
         elif g[2] == 6:
             for_gunter_color.append("purple")
-    plt.barh(y=for_gunter_y, width=for_gunter_width, height=0.3, left=for_gunter_start, align="center", color=for_gunter_color)
+
+    plt.barh(y=for_gunter_y, width=for_gunter_width, height=0.3, left=for_gunter_start
+             , align="center", color=for_gunter_color)
     plt.yticks((1, 2, 3, 4, 5, 6),
                (u'Machine 1', u'Machine 2', u'Machine 3', u'Machine 4', u'Machine 5', u'Machine 6'))
     plt.title('Gunter Graph')
+    print(names)
     dtime = datetime.now()
     un_time = time.mktime(dtime.timetuple())
     path = '/Projects/PyCharm/PyMES/app/static/img/gunter/gunter_cart' + int(un_time).__str__() + '.png'

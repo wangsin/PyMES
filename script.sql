@@ -29,19 +29,23 @@ alter table Material
 
 create table `Order`
 (
-    order_id      int                  not null,
-    start_date    date                 not null,
-    end_date      date                 not null,
-    custom_id     int                  null,
-    is_available  tinyint(1) default 0 not null,
-    is_finished   tinyint(1) default 0 not null,
-    is_urgent     tinyint(1) default 0 not null,
-    need_material int        default 0 not null,
-    need_stock    int        default 6 not null,
+    order_id         int                  not null,
+    start_date       date                 not null,
+    end_date         date                 null,
+    custom_id        int                  null,
+    is_available     tinyint(1) default 0 not null,
+    is_finished      tinyint(1) default 0 not null,
+    is_urgent        tinyint(1) default 0 not null,
+    need_material    int        default 0 not null,
+    need_stock       int        default 6 not null,
+    need_material_id int                  null,
     constraint Order_order_id_uindex
         unique (order_id),
     constraint Order_Customer_id_fk
         foreign key (custom_id) references Customer (id)
+            on update cascade on delete cascade,
+    constraint Order_Material_id_fk
+        foreign key (need_material_id) references Material (id)
             on update cascade on delete cascade
 );
 
@@ -50,13 +54,13 @@ alter table `Order`
 
 create table Job
 (
-    id              int       not null,
-    order_id        int       not null,
-    input_path      char(64)  not null,
-    best_time       int       not null,
-    best_aps        char(128) not null,
-    best_solution   char(128) not null,
-    result_img_path char(128) not null,
+    id              int  not null,
+    order_id        int  null,
+    input_path      text not null,
+    best_time       int  not null,
+    best_aps        text not null,
+    best_solution   text not null,
+    result_img_path text not null,
     constraint Job_id_uindex
         unique (id),
     constraint Job_Order_order_id_fk
@@ -72,7 +76,7 @@ create table Stock
     room_id    int not null,
     rest_num   int not null,
     full_num   int not null,
-    last_order int not null,
+    last_order int null,
     constraint Stock_room_id_uindex
         unique (room_id),
     constraint Stock_Order_order_id_fk

@@ -52,5 +52,5 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('您现在可以登陆了')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index_render'))
     return render_template('auth/register.html', form=form)

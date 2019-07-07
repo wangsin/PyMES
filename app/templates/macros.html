@@ -10,3 +10,52 @@
     {% endif %}
 </tr>
 {% endmacro %}
+
+{% macro render_material(material) %}
+<tr>
+    <th>{{ material.id }}</th>
+    <th>{{ material.name }}</th>
+    <th>{{ material.rest }}</th>
+</tr>
+{% endmacro %}
+
+{% macro render_order(order, custom, material) %}
+    <tr>
+        <th>{{ order.order_id }}</th>
+        <th>{{ order.start_date }}</th>
+        <th>{{ order.end_date }}</th>
+        <th>{{ order.custom_id }}</th>
+        <th>{{ order.is_available }}</th>
+        <th>{{ order.is_finished }}</th>
+        <th>{{ order.is_urgent }}</th>
+        <th>{{ order.need_material_id }}</th>
+        <th>{{ order.need_material }}</th>
+        <th>{{ order.need_stock }}</th>
+    </tr>
+{% endmacro %}
+
+{% macro render_customer(customer) %}
+    <tr>
+        <th>{{ customer.id }}</th>
+        <th>{{ customer.name }}</th>
+        <th>{{ customer.tel }}</th>
+        <th>{{ customer.company }}</th>
+    </tr>
+{% endmacro %}
+
+{% macro render_stock(stock) %}
+    <tr>
+        <th>{{ stock.room_id }}</th>
+        <th>{{ stock.full_num }}</th>
+        <th>{{ stock.rest_num }}</th>
+    </tr>
+{% endmacro %}
+
+{% macro render_job(job) %}
+    <tr>
+        <th>{{ job.id }}</th>
+        <th>{{ job.order_id }}</th>
+        <th>{{ job.best_time }}</th>
+        <th>{{ job.best_aps }}</th>
+    </tr>
+{% endmacro %}

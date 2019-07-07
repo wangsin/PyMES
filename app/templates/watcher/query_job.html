@@ -1,0 +1,28 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "macros.html" as macros %}
+
+{% block title %} 模拟任务详单列表 -- PyMES {% endblock %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-header">已经模拟的任务列表</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>任务ID</th>
+                    <th>订单ID</th>
+                    <th>最优排程时间</th>
+                    <th>最优解</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in jobs %}
+                    {{ macros.render_job(job) }}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 加工监控 -- PyMES {% endblock %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-3">
+            <h1 class="page-header">加工监控</h1>
+            <div>{{ wtf.quick_form(form, method="POST", enctype="multipart/form-data" ) }}</div>
+            <a href="{{ url_for('main.query_job') }}">查询以模拟的任务详单</a>
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">{{ message }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-9">
+            {% if arr != None and id != None %}
+                <h3>当前任务编号：{{ id }}</h3>
+                <h3>当前任务持续时间：{{ arr[0] }}</h3>
+                <h3>当前任务开始时间：{{ arr[1]  }}</h3>
+                <h3>当前任务预计结束时间：{{ arr[2] }}</h3>
+                <h3>预计占用仓库位置：{{ arr[3] }}</h3>
+                <hr>
+                <h3>没有检测到车间数据，请检查硬件信息！</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

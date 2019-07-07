@@ -20,10 +20,10 @@
                     </ul>
                 {% else %}
                     <ul class="nav navbar-nav">
-                        <li><a href="/">模拟</a></li>
+                        <li><a href="{{ url_for('main.simulate_job') }}">模拟</a></li>
                     </ul>
                     <ul class="nav navbar-nav">
-                        <li><a href="/">监控</a></li>
+                        <li><a href="{{ url_for('main.watch_job') }}">监控</a></li>
                     </ul>
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url_for('main.manage_material') }}">物料</a></li>
@@ -32,7 +32,7 @@
                         <li><a href="{{ url_for('main.manage_order') }}">订单</a></li>
                     </ul>
                     <ul class="nav navbar-nav">
-                        <li><a href="/">库存</a></li>
+                        <li><a href="{{ url_for('main.manage_stock') }}">库存</a></li>
                     </ul>
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url_for('main.manage_customer') }}">顾客</a></li>

@@ -2,15 +2,14 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import 'macros.html' as macros %}
 
-{% block title %} 顾客管理 -- PyMES {% endblock %}
+{% block title %} 订单管理 -- PyMES {% endblock %}
 
 {% include 'navbar.html' %}
-
 
 {% block content %}
     <div class="container">
         <div class="col-md-3">
-            <h1 class="page-header">注册顾客信息</h1>
+            <h1 class="page-header">添加订单</h1>
             <div>{{ wtf.quick_form(form, method="POST", enctype="multipart/form-data" ) }}</div>
         </div>
         <div class="col-md-9">
@@ -19,19 +18,25 @@
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
             {% endfor %}
-            <h1 class="page-header">管理顾客信息</h1>
+            <h1 class="page-header">管理订单</h1>
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th>订单编号</th>
+                    <th>开始日期</th>
+                    <th>结束日期</th>
                     <th>顾客ID</th>
-                    <th>姓名</th>
-                    <th>电话</th>
-                    <th>公司</th>
+                    <th>是否有效</th>
+                    <th>是否完成</th>
+                    <th>是否紧急</th>
+                    <th>需要物料编号</th>
+                    <th>需要物料数量</th>
+                    <th>需要库存</th>
                 </tr>
                 </thead>
                 <tbody>
-                    {% for customer in customers %}
-                        {{ macros.render_customer(customer) }}
+                    {% for order in orders %}
+                        {{ macros.render_order(order) }}
                     {% endfor %}
                 </tbody>
             </table>

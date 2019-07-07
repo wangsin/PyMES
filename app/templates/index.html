@@ -8,6 +8,11 @@
 {% block content %}
     <div class="container">
         <div class="col-md-9">
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">{{ message }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+            {% endfor %}
             <h1>你好{{ current_user.name }}，欢迎使用PyMES</h1>
             {% if current_user.is_anonymous %}
             <p>您还没有登陆，点击下方按钮进行登陆或者注册</p>

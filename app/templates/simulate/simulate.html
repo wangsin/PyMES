@@ -1,0 +1,43 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 工件模拟 -- PyMES {% endblock %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-3">
+            <h1 class="page-header">任务模拟</h1>
+            <div>{{ wtf.quick_form(form, method="POST", enctype="multipart/form-data" ) }}</div>
+            <div><a href="../../static/xls/empty.xlsx">点击此处</a>下载机器排程模版，请严格按照模版说明进行数据填写。</div>
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">{{ message }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-9">
+            {% if not result == None %}
+            <h1 class="page-header">订单 {{ result.order_id }} 模拟结果 开发任务编号:{{ result.id }}</h1>
+
+            <img src="{{ result.result_img_path }}" alt="排程甘特图" style="width: 100%;">
+
+            <table class="table table-striped">
+                <tr>
+                    <th>最优排程时间</th>
+                    <th>{{ result.best_time }}</th>
+                </tr>
+                <tr>
+                    <th>最优排程解矩阵</th>
+                    <th>{{ result.best_solution }}</th>
+                </tr>
+                <tr>
+                    <th>最优排程矩阵</th>
+                    <th>{{ result.best_aps }}</th>
+                </tr>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

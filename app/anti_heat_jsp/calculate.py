@@ -205,26 +205,35 @@ def draw_gunter_graph(g_matrix, t_matrix):
             for_gunter_color.append("gray")
         elif g[2] == 6:
             for_gunter_color.append("purple")
-    plt.barh(y=for_gunter_y, width=for_gunter_width, height=0.3, left=for_gunter_start, align="center",
-             color=for_gunter_color)
+    plt.barh(y=for_gunter_y, width=for_gunter_width, height=0.3, left=for_gunter_start, align="center", color=for_gunter_color)
     plt.yticks((1, 2, 3, 4, 5, 6),
                (u'Machine 1', u'Machine 2', u'Machine 3', u'Machine 4', u'Machine 5', u'Machine 6'))
     plt.title('Gunter Graph')
     dtime = datetime.now()
     un_time = time.mktime(dtime.timetuple())
-    path = '../static/img/gunter/gunter_cart' + int(un_time).__str__() + '.png'
+    path = '/Projects/PyCharm/PyMES/app/static/img/gunter/gunter_cart' + int(un_time).__str__() + '.png'
+    filename = 'gunter_cart' + int(un_time).__str__() + '.png'
     plt.savefig(path)
     plt.show()
-    return path, un_time
+    return path, un_time, filename
 
 
 def calculate_result(input_path, context, init_solution, order_id):
     best_solution, iteration = simulated_annealing_algorithm(
         init_solution, 0.04, 0.999, 0.001, context)
     make_gunter_matrix(best_solution['solution'], context)
-    img_path, un_time = draw_gunter_graph(gunter_matrix, time_matrix)
-    result = Job(int(un_time).__str__(), order_id, input_path
-                 , best_solution['objective'], best_solution['machine-schedule']
-                 , gunter_matrix, img_path)
+    input_path, un_time, filename = draw_gunter_graph(gunter_matrix, time_matrix)
+    result = Job(id=int(un_time).__str__(),
+                 order_id=order_id,
+                 input_path=input_path.__str__(),
+                 best_time=best_solution['objective'].__str__(),
+                 best_aps=best_solution['machine-schedule'].__str__(),
+                 best_solution=gunter_matrix.__str__(),
+                 result_img_path='/static/img/gunter/' + filename)
     db.session.add(result)
     db.session.commit()
+
+    return result.id
+
+
+

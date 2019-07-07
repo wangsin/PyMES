@@ -20,7 +20,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('密码', validators=[DataRequired(), EqualTo('password2', message='密码不匹配')])
     password2 = PasswordField('确认密码', validators=[DataRequired()])
     # role = SelectMultipleField('用户角色', choices=[(1, "管理员"), (2, "观察者")])
-    is_administrator = BooleanField('是否为管理员', validators=[DataRequired()])
+    is_administrator = BooleanField('是否为管理员')
     submit = SubmitField('确认注册')
 
     def validate_email(self, field):

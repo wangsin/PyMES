@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, IntegerField
+from flask_wtf.file import FileRequired, FileAllowed
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, IntegerField, FileField
 from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
 
@@ -35,3 +36,20 @@ class AddOrderForm(FlaskForm):
     need_material = IntegerField('所需材料数', validators=[DataRequired()])
     need_stock = IntegerField('所需库存', validators=[DataRequired()])
     submit = SubmitField('确认注册顾客信息')
+
+
+class AddJob(FlaskForm):
+    order_id = IntegerField('已经注册的订单编号', validators=[DataRequired()])
+    upload_file = FileField('排程文件', validators=[FileRequired(), FileAllowed(['xls', 'xlsx'], '只支持excel标准文件格式！')])
+    submit = SubmitField('提交模拟任务')
+
+
+class AddStock(FlaskForm):
+    rest_num = IntegerField('剩余库存', validators=[DataRequired()])
+    full_num = IntegerField('最大库存', validators=[DataRequired()])
+    submit = SubmitField('提交库存信息')
+
+
+class StartWatchForm(FlaskForm):
+    job_id = IntegerField('模拟成功的任务ID', validators=[DataRequired()])
+    submit = SubmitField('确定开始运行任务')

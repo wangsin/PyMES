@@ -2,7 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import 'macros.html' as macros %}
 
-{% block title %} 顾客管理 -- PyMES {% endblock %}
+{% block title %} 库存管理 -- PyMES {% endblock %}
 
 {% include 'navbar.html' %}
 
@@ -10,28 +10,27 @@
 {% block content %}
     <div class="container">
         <div class="col-md-3">
-            <h1 class="page-header">注册顾客信息</h1>
+            <h1 class="page-header">注册新的仓库</h1>
             <div>{{ wtf.quick_form(form, method="POST", enctype="multipart/form-data" ) }}</div>
         </div>
         <div class="col-md-9">
-            {% for message in get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
             <div class="alert alert-warning">{{ message }}
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
-            {% endfor %}
-            <h1 class="page-header">管理顾客信息</h1>
+        {% endfor %}
+            <h1 class="page-header">查询仓储信息</h1>
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th>顾客ID</th>
-                    <th>姓名</th>
-                    <th>电话</th>
-                    <th>公司</th>
-                </tr>
+                    <tr>
+                        <th>仓库ID</th>
+                        <th>完整空间</th>
+                        <th>剩余空间</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    {% for customer in customers %}
-                        {{ macros.render_customer(customer) }}
+                    {% for stock in stocks %}
+                        {{ macros.render_stock(stock) }}
                     {% endfor %}
                 </tbody>
             </table>

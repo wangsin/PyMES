@@ -117,8 +117,6 @@ def manage_stock():
 @main.route('/watcher', methods=['GET', 'POST'])
 @login_required
 def watch_job():
-    if not current_user.is_administrator:
-        return render_template('error/401.html')
     form = StartWatchForm()
     job_id = form.job_id.data
     watch_arr = []
@@ -158,11 +156,7 @@ def simulate_job():
 
 
 @main.route('/query-job', methods=['GET', 'POST'])
-@login_required
 def query_job():
-    if not current_user.is_administrator:
-        return render_template('error/401.html')
-
     return render_template('watcher/query_job.html', jobs=db.session.query(Job.id, Job.order_id
                                                                            , Job.best_time, Job.best_aps))
 

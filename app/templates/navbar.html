@@ -16,7 +16,7 @@
             {% if current_user.is_authenticated %}
                 {% if not current_user.is_administrator %}
                     <ul class="nav navbar-nav">
-                        <li><a href="/">监控</a></li>
+                        <li><a href="{{ url_for('main.watch_job') }}">监控</a></li>
                     </ul>
                 {% else %}
                     <ul class="nav navbar-nav">
